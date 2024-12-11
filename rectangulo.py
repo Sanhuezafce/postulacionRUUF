@@ -4,17 +4,26 @@
 # Retorna cuantos rectangulos de medida a,b caben en un rectangulo de medidas x,y
 # Ej: cuantosCaben(1,2,2,3) retorna 3
 def cuantosCaben(a,b,x,y):
-    # Check area 
-    # Chequeo si cabe horz o vert
-    if (a*b > x*y) or (a>x and a>y) or (b>x and b>y):
-        return 0
     #ver 2 casos y el max entre ellos
-    #a por el eje x
-    #b por el eje x
-    ancho_ocupado = int(x/a) #usamos int para truncar y no tener decimales
-    alto_ocupado = int(x/b)
-    forma1= ancho_ocupado + cuantosCaben(a,b,x,y-b)
-    forma2= alto_ocupado + cuantosCaben(a,b,x,y-a)
+    #a en el x
+    #b en el x
+    ancho1 = int(x/a)
+    alto1 = int(y/a)
+    ancho2 = int(x/b)
+    alto2= int(y/b)
+    
+    if (ancho1 or alto1) < 1: #chequeo las cond en este paso
+        return 0
+    else:
+        #en cada llamado recursivo revisamos el trozo del rectangulo que sobro
+        forma1= ancho1 + cuantosCaben(a,b,x,y-b) 
+        
+    if (ancho2 or alto2) < 1:
+        return 0
+    else:    
+        forma2= alto2 + cuantosCaben(a,b,x,y-a)
+    print("RectaGrande: ",x,y,"Forma1: ",forma1)
+    print("RectaGrande: ",x,y,"Forma2: ",forma2)
     return max(forma1,forma2)
 #tests
 
