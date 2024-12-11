@@ -1,11 +1,21 @@
 # sol Rectangulo
 
 # cuantosCaben: int int int int -> int
-# Retorna cuantos rectangulos de medida x,y caben en un rectangulo de medidas a,b
+# Retorna cuantos rectangulos de medida a,b caben en un rectangulo de medidas x,y
 # Ej: cuantosCaben(1,2,2,3) retorna 3
-def cuantosCaben(x,y,a,b): 
-    pass
-
+def cuantosCaben(a,b,x,y):
+    # Check area 
+    # Chequeo si cabe horz o vert
+    if (a*b > x*y) or (a>x and a>y) or (b>x and b>y):
+        return 0
+    #ver 2 casos y el max entre ellos
+    #a por el eje x
+    #b por el eje x
+    ancho_ocupado = int(x/a) #usamos int para truncar y no tener decimales
+    alto_ocupado = int(x/b)
+    forma1= ancho_ocupado + cuantosCaben(a,b,x,y-b)
+    forma2= alto_ocupado + cuantosCaben(a,b,x,y-a)
+    return max(forma1,forma2)
 #tests
 
 #Tests provistos
