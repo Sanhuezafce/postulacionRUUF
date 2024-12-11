@@ -62,7 +62,16 @@ assert cuantosCaben(3, 5, 5, 3) == 1
 # Retorna cuantos rectangulos x,y caben en un triangulo isosceles
 # Ej: cuantosCabenIso(1,2,4,8) retorna 6
 def cuantosCabenIso(x,y,h,b):
-    pass
+    sol = []
+    #Voy armando un rect en cada altura posible del triangulo
+    for i in range(h):
+        # Busque la formula para el rectangulo inscrito y 
+        # asi tengo las medidas para cada altura en el triangulo
+        base_rectangulo = int(b * (1 - i/h))
+        altura_rectangulo = i
+        sol.append(cuantosCaben(x,y,base_rectangulo,altura_rectangulo))
+    # Retorno el rect que permita agregar la mayor cant de rectangulos chicos
+    return max(sol)
 
 #Tests
 #Caso borde
