@@ -4,6 +4,7 @@
 # Retorna cuantos rectangulos de medida a,b caben en un rectangulo de medidas x,y
 # Ej: cuantosCaben(1,2,2,3) retorna 3
 def cuantosCaben(a,b,x,y):
+    # Check area 
     #ver 2 casos y el max entre ellos
     #a en el x
     #b en el x
@@ -12,19 +13,23 @@ def cuantosCaben(a,b,x,y):
     ancho2 = int(x/b)
     alto2= int(y/b)
     
-    if (ancho1 or alto1) < 1: #chequeo las cond en este paso
+    #chequeo que el rectangulo chico alcance al menos
+    #1 vez en el grande.
+    if (ancho1 < 1) or (alto1 < 1):
         return 0
     else:
-        #en cada llamado recursivo revisamos el trozo del rectangulo que sobro
-        forma1= ancho1 + cuantosCaben(a,b,x,y-b) 
+        #Simula teselar desde el ancho y largo
+        forma1 = ancho1 + cuantosCaben(a,b,x,y-b)
+        forma2 = alto1 + cuantosCaben(a,b,x,y-a)
         
-    if (ancho2 or alto2) < 1:
+    if (ancho2 < 1) or (alto2 < 1):
         return 0
     else:    
-        forma2= alto2 + cuantosCaben(a,b,x,y-a)
-    print("RectaGrande: ",x,y,"Forma1: ",forma1)
-    print("RectaGrande: ",x,y,"Forma2: ",forma2)
-    return max(forma1,forma2)
+        #Simula teselar desde el ancho y largo por el otro
+        #lado del rectangulo
+        forma3 = ancho2 + cuantosCaben(a,b,x,y-a)
+        forma4 = alto2 + cuantosCaben(a,b,x,y-b)
+    return max(forma1,forma2,forma3,forma4)
 #tests
 
 #Tests provistos
